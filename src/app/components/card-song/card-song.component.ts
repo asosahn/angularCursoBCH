@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./card-song.component.css']
 })
 export class CardSongComponent implements OnInit {
-  @Input() data: any;
+  @Input() data: any = {};
   @Input() buttonTitle: string;
   @Output() buttonClickSongCard = new EventEmitter<any>();
   constructor() { }

@@ -15,14 +15,18 @@ export class SongsComponent implements OnInit {
 
   }
 
-  verMas( eventName: string ) {
+  verMas(eventName: string) {
     this.router.navigate(['song', eventName]);
     // console.log(eventName);
   }
 
   ngOnInit() {
-    this.canciones = this.songsService.getSongs();
-    console.log(this.canciones);
+    // this.canciones = this.songsService.getSongs();
+    this.songsService.getSongs().subscribe
+      ((songs: any) => {
+        this.canciones = songs;
+      });
+    // console.log(this.canciones);
   }
 
 }

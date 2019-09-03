@@ -1,3 +1,4 @@
+import { FormaComponent } from './components/forma/forma.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { SongComponent } from './components/song/song.component';
 import { ArtistasComponent } from './components/artistas/artistas.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   // { path: 'artistas/:id', component: ArtistasComponent },
   { path: 'song/:name', component: SongComponent },
   { path: 'artist/:id', component: ArtistComponent },
+  { path: 'forma', component: FormaComponent }
 ];
 
 @NgModule({

@@ -18,14 +18,28 @@ export class ArtistComponent implements OnInit {
   }
   ngOnInit() {
 
+    // con formato promesa
+    ///////////////////////////////////
+    this.activedRoute.params.subscribe(
+      (params: any) => {
+        this.artistsService.getArtistsById(params.id)
+        .then((artista: any) => {
+          this.artista = artista;
+        })
+        .catch((Err) => {
+          console.log(Err);
+        });
+       }
+    );
+     //////////////////////////////////////////////
     // con async await (Promesa)
 
-    this.activedRoute.params.subscribe(
-      async (params: any) => {
-        console.log(params); // { id: <id> }
-        this.artista = await this.artistsService.getArtistsById(params.id);
-      }
-    );
+    // this.activedRoute.params.subscribe(
+    //   async (params: any) => {
+    //     console.log(params); // { id: <id> }
+    //     this.artista = await this.artistsService.getArtistsById(params.id);
+    //   }
+    // );
 
     // con observable
 

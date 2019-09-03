@@ -1,4 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+
+const URL_SONGS = 'http://172.23.1.114:3010/songs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,16 +32,27 @@ export class SongsService {
       singer: 'Miguel Mateos'
     },
   ];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getSongs() {
-    return this.songs;
+  getSongs(): Observable<any> {
+    // return this.songs;
+    return this.http.get(URL_SONGS).pipe(
+      map((songs: any) => {
+        this.songs = songs;
+        return this.songs;
+      })
+    );
   }
 
-  getSongByName( nombreCancion: string ) {
+  async getSongByName( nombreCancion: string ) {
     // debugger;
-    const songFound = this.songs.find(song => song.name === nombreCancion);
-    return songFound;
+    // const songFound = this.songs.find(song => song.name === nombreCancion);
+    const cancion: any = await this.http.get(URL_SONGS, { params: { name: nombreCancion }}).toPromise();
+    if (cancion.length > 0) {
+      return cancion[0];
+    }
+    return {};
+    // return songFound;
   }
 }
 

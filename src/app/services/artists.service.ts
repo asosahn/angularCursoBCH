@@ -59,17 +59,33 @@ export class ArtistsService {
   //     })
   //   );
   // }
-  async getArtistsById(id: string): Promise<any> {
-    try {
-      // const artista: any = await this.http.get(`${URL_ARTISTS}?_id=${id}`).toPromise();
-      const artista: any = await this.http.get(URL_ARTISTS, { params: { _id: id } }).toPromise();
-      if (artista.length > 0) {
-        return artista[0];
-      }
-      return {};
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
+  // async await (Promise)
+  // async getArtistsById(id: string): Promise<any> {
+  //   try {
+  //     // const artista: any = await this.http.get(`${URL_ARTISTS}?_id=${id}`).toPromise();
+  //     const artista: any = await this.http.get(URL_ARTISTS, { params: { _id: id } }).toPromise();
+  //     if (artista.length > 0) {
+  //       return artista[0];
+  //     }
+  //     return {};
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  // con formato de promesa
+  getArtistsById(id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(URL_ARTISTS, { params: { _id: id } }).toPromise()
+        .then((artista: any) => {
+          if (artista.length > 0) {
+            resolve(artista[0]);
+          } else {
+            resolve({});
+          }
+        })
+        .catch(err => reject(err));
+    });
+  }
 }
