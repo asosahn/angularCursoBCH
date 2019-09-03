@@ -36,18 +36,41 @@ export class ArtistasComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
+    // forma de promesa (then, catch)
     this.artistsService.getArtists()
-      .subscribe(resp => {
-        const preArtista = _.cloneDeep(resp);
-        this.artistas = preArtista.map(artista => {
+      .then(artistas => {
+        const preArtistas = _.cloneDeep(artistas);
+        this.artistas = preArtistas.map(artista => {
           artista.description = `${artista.description.substring(0, 100)} ...`;
           return artista;
-        }, (err) => {
-          console.log(err);
         });
+      })
+      .catch((err) => {
+        console.log(err);
       });
+
+
+    // con la manera async
+
+    // const preArtista = await this.artistsService.getArtists();
+    // const cloneArtistas = _.cloneDeep(preArtista);
+    // this.artistas = cloneArtistas.map(artista => {
+    //   artista.description = `${artista.description.substring(0, 100)} ...`;
+    //   return artista;
+    // });
+
+    // ejemplo con observable (subscribe)
+
+    // this.artistsService.getArtists()
+    //   .subscribe(resp => {
+    //     const preArtista = _.cloneDeep(resp);
+    //     this.artistas = preArtista.map(artista => {
+    //       artista.description = `${artista.description.substring(0, 100)} ...`;
+    //       return artista;
+    //     }, (err) => {
+    //       console.log(err);
+    //     });
+    //   });
   }
 
   // ngOnDestroy() {
