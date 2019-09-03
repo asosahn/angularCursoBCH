@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 // import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtistsService {
-artistas: any[] = [];
+  artistas: any[] = [];
   constructor(private http: HttpClient) { }
 
   getArtists(): Observable<any> {
-    return this.http.get('http://localhost:3010/artist')
-    .pipe( map((resp: any[]) => {
-      this.artistas = resp;
-      return resp;
-    }));
+    return this.http.get('http://172.23.1.114:3010/artist')
+      .pipe(map((resp: any[]) => {
+        this.artistas = resp;
+        return resp;
+      }));
     // .subscribe(resp => {
     //   return resp;
     // });
     // return this.artistas;
   }
 
-  getArtistsById( id: string ) {
-     return this.artistas.find(artista => artista._id === id);
+
+
+  getArtistsById(id: string) {
+    return this.artistas.find(artista => artista._id === id);
   }
 }

@@ -2,6 +2,7 @@ import { ArtistsService } from '../../services/artists.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
+import { HttpErrorResponse } from '@angular/common/http';
 // import { ArtistsService } from '../../services/artists.service';
 
 @Component({
@@ -35,12 +36,16 @@ export class ArtistasComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.artistsService.getArtists()
       .subscribe(resp => {
         const preArtista = _.cloneDeep(resp);
         this.artistas = preArtista.map(artista => {
           artista.description = `${artista.description.substring(0, 100)} ...`;
           return artista;
+        }, (err) => {
+          console.log(err);
         });
       });
   }
