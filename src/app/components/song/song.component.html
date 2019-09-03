@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6">
+        <app-card-song [data]="cancion" buttonTitle="ir atrás" (buttonClickSongCard)="irAtras()"></app-card-song>
+        <!-- <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ cancion.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{cancion.time}}</h6>
+              <p class="card-text">{{ cancion.singer }}</p>
+              <a [routerLink]="['/songs']" class="card-link">ir atrás</a>
+            </div>
+          </div> -->
+    </div>
+  </div>
+</div>

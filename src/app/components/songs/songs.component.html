@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-4 mt-2" *ngFor="let cancion of canciones">
+        <app-card-song [data]="cancion" buttonTitle="Ver Más"
+        (buttonClickSongCard)="verMas($event)"></app-card-song>
+        <!-- <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{cancion.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ cancion.time }}</h6>
+              <p class="card-text">{{ cancion.singer }}</p>
+              <a [routerLink]="['/song', cancion.name]" class="card-link">Ver más</a>
+            </div>
+          </div> -->
+    </div>
+  </div>
+</div>

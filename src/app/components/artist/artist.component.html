@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>{{ artista.name }}</h1>
+    </div>
+    <div class="col-md-8 col-sm-12 mx-auto animated bounceIn">
+        <app-card [data]="artista" buttonTitle="Ir atrás"
+        (clickButton)="irAtras()"></app-card>
+        <!-- <div class="card" >
+            <img src="{{artista.image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ artista.name }}</h5>
+              <p class="card-text">{{ artista.description }}
+                </p>
+              <a [routerLink]="['/artistas']" class="btn btn-primary">ir Atras</a>
+            </div>
+          </div> -->
+    </div>
+  </div>
+</div>

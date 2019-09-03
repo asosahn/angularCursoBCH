@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center animated fadeIn">{{ title.toLocaleUpperCase() }}</h1>
+      </div>
+      <div class="col-6">
+        <h2>*ngIf</h2>
+        <div *ngIf="mostrar" class="card text-white bg-primary mb-3 animated fadeIn" style="max-width: 18rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Primary card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+        <button (click)="mostrarCard()" type="button" class="btn btn-outline-primary">mostrar/ocultar</button>
+        <div class="mt-2">
+          <input [(ngModel)]="nArtista" (keyup.enter)="agregarArtista()" class="form-control" type="text">
+        </div>
+        <div class="mt-2">
+          <input [(ngModel)]="title" class="form-control" type="text">
+        </div>
+        <div class="mt-2">
+          <button (click)="agregarArtista()" class="btn btn-info bt-sm">Agregar Artista</button>
+        </div>
+        <div class="mt-2">
+          <button (click)="title = 'Ramon'" class="btn btn-info bt-sm">Cambiar titulo</button>
+        </div>
+      </div>
+      <div class="col-6">
+        <h2>*ngFor</h2>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between" *ngFor="let artista of artistas; let indice = index">
+              <span>{{ indice + 1 }}. {{ artista.nombre }}</span>
+              <button (click)="borrarArtista(indice)" class="btn btn-danger btn-sm">borrar</button>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
