@@ -1,0 +1,17 @@
+<span [ngSwitch]="getErrors(errors)">
+<p *ngSwitchCase="'required'">
+  Campo requerido
+</p>
+<p *ngSwitchCase="'minlength'">
+    por lo menos {{ errors?.minlength.requiredLength }} caracteres
+</p>
+<p *ngSwitchCase="'maxlength'">
+    hasta {{ errors?.maxlength.requiredLength }} caracteres
+</p>
+<p *ngSwitchCase="'pattern'">
+    Formato incorrecto
+</p>
+<p *ngSwitchDefault>
+
+</p>
+</span>

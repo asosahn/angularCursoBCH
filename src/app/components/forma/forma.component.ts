@@ -38,10 +38,19 @@ export class FormaComponent implements OnInit {
   guardarFormulario( formulario: NgForm ) {
     if (formulario.valid) {
       // request al api
+      console.log(formulario);
       console.log('formulario válido');
+
+      formulario.resetForm();
+      console.log(formulario);
     } else {
+      console.log(formulario);
       console.log('formulario inválido');
     }
+  }
+
+  limpiarFormulario( formulario: NgForm ) {
+    formulario.resetForm(this.cliente);
   }
 
 }

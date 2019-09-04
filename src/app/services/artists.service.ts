@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 // import { HttpClient } from '@angular/common/http';
+
+export interface Artista {
+  name?: string;
+  description?: string;
+  image?: string;
+  band?: boolean;
+}
 
 const URL_ARTISTS = 'http://bch.hazsk.com/artist';
 @Injectable({
   providedIn: 'root'
 })
 export class ArtistsService {
-  artistas: any[] = [];
+  artistas: Artista[] = [];
   constructor(private http: HttpClient) { }
 
   // getArtists(): Observable<any> {
@@ -32,7 +39,7 @@ export class ArtistsService {
   getArtists(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get(URL_ARTISTS).toPromise()
-        .then((resp: any[]) => {
+        .then((resp: Artista[]) => {
           this.artistas = resp;
           resolve(this.artistas);
         })
@@ -78,7 +85,7 @@ export class ArtistsService {
   getArtistsById(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get(URL_ARTISTS, { params: { _id: id } }).toPromise()
-        .then((artista: any) => {
+        .then((artista: Artista[]) => {
           if (artista.length > 0) {
             resolve(artista[0]);
           } else {
@@ -87,5 +94,18 @@ export class ArtistsService {
         })
         .catch(err => reject(err));
     });
+  }
+
+  agregarArtista( artista: Artista ): Observable<any> {
+    return this.http.post<any>(URL_ARTISTS, artista).pipe(
+      map(( newArtista: Artista | any) => {
+        this.artistas.push(newArtista);
+        return newArtista;
+      })
+      // catchError((err: Error | any) => {
+      //   console.log(err);
+      //   return of(err);
+      // })
+    );
   }
 }

@@ -18,6 +18,8 @@ import { ArtistComponent } from './components/artist/artist.component';
 import { CardComponent } from './components/card/card.component';
 import { CardSongComponent } from './components/card-song/card-song.component';
 import { FormaComponent } from './components/forma/forma.component';
+import { ErrorsComponent } from './components/errors/errors.component';
+import { AgregarArtistaComponent } from './components/agregar-artista/agregar-artista.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import { FormaComponent } from './components/forma/forma.component';
     CardComponent,
     CardSongComponent,
     FormaComponent,
+    ErrorsComponent,
+    AgregarArtistaComponent,
 
   ],
   imports: [
