@@ -19,6 +19,7 @@ import { CardComponent } from './components/card/card.component';
 import { CardSongComponent } from './components/card-song/card-song.component';
 import { FormaComponent } from './components/forma/forma.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { FormaComponent } from './components/forma/forma.component';
     ArtistComponent,
     CardComponent,
     CardSongComponent,
-    FormaComponent
+    FormaComponent,
+
   ],
   imports: [
     BrowserModule,
