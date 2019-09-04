@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 // import { HttpClient } from '@angular/common/http';
 
-const URL_ARTISTS = 'http://172.23.1.114:3010/artist';
+const URL_ARTISTS = 'http://192.241.255.40:3010/artist';
 @Injectable({
   providedIn: 'root'
 })

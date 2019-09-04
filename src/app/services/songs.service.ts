@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 
-const URL_SONGS = 'http://172.23.1.114:3010/songs';
+const URL_SONGS = 'http://192.241.255.40:3010/songs';
 
 @Injectable({
   providedIn: 'root'
