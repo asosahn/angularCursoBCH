@@ -2,6 +2,7 @@ import { SongsService } from './../../services/songs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { NgxSpinnerService } from 'ngx-spinner';
 // import { SongsSchema } from '../../services/songs.service';
 @Component({
   selector: 'app-song',
@@ -26,6 +27,7 @@ export class SongComponent implements OnInit {
     this.router.navigate(['songs']);
    }
   ngOnInit() {
+
     this.activatedRoute.params.subscribe(async (params: any) => {
       // get song by id from songs service
       // debugger;
@@ -35,7 +37,10 @@ export class SongComponent implements OnInit {
       if (_.isEmpty(this.cancion)) {
         this.alerta = true;
       }
+      // this.spinner.hide();
       console.log(this.cancion);
+    }, (err) => {
+      // this.spinner.hide();
     });
   }
 
