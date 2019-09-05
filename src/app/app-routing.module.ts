@@ -1,3 +1,4 @@
+
 import { AgregarArtistaComponent } from './components/agregar-artista/agregar-artista.component';
 import { FormaComponent } from './components/forma/forma.component';
 import { ArtistComponent } from './components/artist/artist.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'artist/:id', component: ArtistComponent },
   { path: 'forma', component: FormaComponent },
   { path: 'agregarArtista', component: AgregarArtistaComponent },
+  { pathMatch: 'full', path: '**', redirectTo: '' }
 ];
 
 @NgModule({

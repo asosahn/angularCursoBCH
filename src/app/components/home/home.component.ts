@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent {
     },
   ];
 
-  constructor() {}
+  constructor() {
+  }
 
   mostrarCard() {
     console.log('di click');

@@ -1,6 +1,8 @@
+import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 
 interface Cliente {
   name: string;
@@ -15,7 +17,8 @@ interface Cliente {
   templateUrl: './forma.component.html',
   styleUrls: ['./forma.component.css']
 })
-export class FormaComponent implements OnInit {
+export class FormaComponent implements OnInit, AfterViewInit {
+  @ViewChild('formulario', null) form: NgForm;
   countries: any[] = [];
   cliente: Cliente = {
     name: 'Andres',
@@ -24,7 +27,15 @@ export class FormaComponent implements OnInit {
     gender: 'm',
     country: 'HN'
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  ngAfterViewInit(): void {
+    console.log('entro al after init');
+    console.log(this.form.value);
+    setTimeout(() => {
+      console.log(this.form.value);
+    });
+  }
 
   ngOnInit() {
     this.http.get('https://restcountries.eu/rest/v2/')

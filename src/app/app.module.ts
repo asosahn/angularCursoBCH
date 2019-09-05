@@ -20,7 +20,7 @@ import { CardSongComponent } from './components/card-song/card-song.component';
 import { FormaComponent } from './components/forma/forma.component';
 import { ErrorsComponent } from './components/errors/errors.component';
 import { AgregarArtistaComponent } from './components/agregar-artista/agregar-artista.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -35,14 +35,15 @@ import { AgregarArtistaComponent } from './components/agregar-artista/agregar-ar
     CardSongComponent,
     FormaComponent,
     ErrorsComponent,
-    AgregarArtistaComponent,
+    AgregarArtistaComponent
 
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
