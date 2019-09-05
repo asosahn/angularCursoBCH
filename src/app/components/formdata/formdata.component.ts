@@ -1,6 +1,7 @@
+import { AlertasService } from './../../services/alertas.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,61 +10,41 @@ import { Observable } from 'rxjs';
   styleUrls: ['./formdata.component.css']
 })
 export class FormdataComponent implements OnInit {
-  form: FormGroup;
-  user: {} = {
-    name: '',
-    lastName: '',
-    gender: '',
-    email: '',
-    skills: [],
-    country: ''
-  };
 
-  countries: any[] = [
-    {
-      code: 'hn',
-      name: 'Honduras',
-    },
-    {
-      code: 'pty',
-      name: 'Panamá',
-    },
-    {
-      code: 'es',
-      name: 'El Salvador',
-    },
-  ];
-  constructor(private http: HttpClient) {
+  form: FormGroup;
+  user: any = {
+    name: 'Andres',
+    lastName: 'Sosa',
+    gender: 'm',
+    email: 'ramonsosadiaz@gmail.com',
+    skills: ['Hola', 'Angular'],
+    country: 'HN'
+  };
+  countries: any[];
+  constructor(private http: HttpClient, private alertService: AlertasService) {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required], this.exists),
-      skills: new FormArray([
-      ]),
+      skills: new FormArray([]),
       lastName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       gender: new FormControl(''),
-      country: new FormControl('')
+      country: new FormControl(''),
+      password: new FormControl(''),
+      confpassword: new FormControl('')
     });
 
+    (this.form.controls.skills as FormArray).push(new FormControl('Hola', Validators.required));
+
+    this.form.valueChanges.subscribe(data => console.log(data));
+    this.form.controls.name.valueChanges.subscribe(data => console.log(data));
+    this.form.controls.name.setValue('Ramon');
+    this.form.controls.lastName.setValue('Sosa');
+
+    // validación de confirmación de password
     // tslint:disable-next-line:max-line-length
-    // this.form.controls['password2'].setValidators([Validators.required, this.reviewPassword.bind(this.form)]);
-
-    // setear valores por defecto a la forma
-    // this.form.setValue({ ...this.user, password: '', password2: '' });
-    // ver cambios en tiempo real de la forma
-    // this.form.valueChanges.subscribe(data => console.log(data));
-
-    // ver cambios de un campo en especial
-    // (this.form.controls.fullName as FormGroup).controls.name.valueChanges.subscribe(data => console.log(data));
-    // ((this.form.controls['fullName'] as FormGroup).controls['name'] as FormControl).valueChanges.subscribe(data => console.log(data));
-
-    // ejemplo básico
-    // this.form = new FormGroup({
-    //   name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    //   description: new FormControl('', Validators.required),
-    //   image: new FormControl('', Validators.required),
-    // });
-
+    this.form.controls.confpassword.setValidators([Validators.required, this.reviewPassword.bind(this.form)]);
+    // se envía como this la forma a la función
   }
 
   ngOnInit() {
@@ -71,9 +52,15 @@ export class FormdataComponent implements OnInit {
       .subscribe(
         (countries: any[]) => {
           this.countries = countries;
+
         }
       );
+
+    this.alertService.mostrarVentana({ title: 'hola', text: '', type: 'success', confirmButtonText: 'Aceptar' });
+
   }
+
+
 
 
 
@@ -113,14 +100,13 @@ export class FormdataComponent implements OnInit {
 
   }
 
-  reviewPassword(control: FormControl): { [s: string]: boolean } {
-    const form: FormGroup = (this as unknown as FormGroup);
-    if (control.value !== form.controls['password'].value) {
+  reviewPassword(control: FormControl): any {
+    const forma: FormGroup = (this as unknown as FormGroup);
+    if (control.value !== forma.controls.password.value) {
       return {
         different: true
       };
     }
-
     return null;
   }
 

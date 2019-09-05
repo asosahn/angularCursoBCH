@@ -35,6 +35,22 @@
               </div>
           </div>
           <div class="form-group row">
+
+              <label class="col-2 col-form-label">Password</label>
+              <div class="col-8">
+              <input [ngClass]="{'is-invalid': isInvalid('password')}" class="form-control" type="email" formControlName="password" placeholder="Password">
+              <app-errors [errors]="returnErrors('password')" class="invalid-feedback"></app-errors>
+              </div>
+          </div>
+          <div class="form-group row">
+
+              <label class="col-2 col-form-label">Confirmar Password</label>
+              <div class="col-8">
+              <input [ngClass]="{'is-invalid': isInvalid('confpassword')}" class="form-control" type="email" formControlName="confpassword" placeholder="Password">
+              <app-errors [errors]="returnErrors('confpassword')" class="invalid-feedback"></app-errors>
+              </div>
+          </div>
+          <div class="form-group row">
               <label class="col-2 col-form-label">Sexo</label>
               <div class="col-md-8">
                   <div class="form-check form-check-inline">
@@ -60,7 +76,7 @@
             </div>
           </div>
           <div class="form-group row" formArrayName="skills"
-            *ngFor="let int of form.controls['skills'].controls; let idx = index">
+            *ngFor="let int of form?.controls['skills']?.controls; let idx = index">
             <label class="col-2 col-form-label">&nbsp;</label>
             <div class="col-8">
 
