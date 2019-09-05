@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SongsComponent } from './components/songs/songs.component';
+import { FormdataComponent } from './components/formdata/formdata.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'artist/:id', component: ArtistComponent },
   { path: 'forma', component: FormaComponent },
   { path: 'agregarArtista', component: AgregarArtistaComponent },
+  { path: 'formdata', component: FormdataComponent },
+  // si no encuentra la ruta, hace redireccionamiento con redirectTo
   { pathMatch: 'full', path: '**', redirectTo: '' }
 ];
 

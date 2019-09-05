@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ArtistsService, Artista } from './../../services/artists.service';
 import { NgForm } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,11 +9,18 @@ import Swal from 'sweetalert2';
   templateUrl: './agregar-artista.component.html',
   styleUrls: ['./agregar-artista.component.css']
 })
-export class AgregarArtistaComponent implements OnInit {
+export class AgregarArtistaComponent implements OnInit, AfterViewInit {
   loading = false;
+
+  @ViewChild('formulario', null) miForma: any;
+
   constructor(private artistsService: ArtistsService) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    console.log(this.miForma);
   }
 
   guardarFormulario( formulario: NgForm ) {

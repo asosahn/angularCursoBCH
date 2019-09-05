@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 // import para usar http request
 import { HttpClientModule } from '@angular/common/http';
 // import para poder usar ngModel y Formularios
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // importaciones de componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,7 @@ import { FormaComponent } from './components/forma/forma.component';
 import { ErrorsComponent } from './components/errors/errors.component';
 import { AgregarArtistaComponent } from './components/agregar-artista/agregar-artista.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FormdataComponent } from './components/formdata/formdata.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CardSongComponent,
     FormaComponent,
     ErrorsComponent,
-    AgregarArtistaComponent
+    AgregarArtistaComponent,
+    FormdataComponent
 
   ],
   imports: [
@@ -43,7 +45,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
