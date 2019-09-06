@@ -56,7 +56,7 @@ export class FormdataComponent implements OnInit {
         }
       );
 
-    this.alertService.mostrarVentana({ title: 'hola', text: '', type: 'success', confirmButtonText: 'Aceptar' });
+    // this.alertService.mostrarVentana({ title: 'hola', text: '', type: 'success', confirmButtonText: 'Aceptar' });
 
   }
 
