@@ -18,7 +18,9 @@ export class FormdataComponent implements OnInit {
     gender: 'm',
     email: 'ramonsosadiaz@gmail.com',
     skills: ['Hola', 'Angular'],
-    country: 'HN'
+    country: 'HN',
+    password: '',
+    confpassword: ''
   };
   countries: any[];
   constructor(private http: HttpClient, private alertService: AlertasService) {
@@ -34,17 +36,41 @@ export class FormdataComponent implements OnInit {
       confpassword: new FormControl('')
     });
 
-    (this.form.controls.skills as FormArray).push(new FormControl('Hola', Validators.required));
+    // this.form = new FormGroup({});
+    // Object.keys(this.user).forEach((campo => {
+    //   if ( this.user[campo] instanceof Array ) {
+    //     this.form.addControl(campo, new FormArray([]));
+    //   } else {
+    //     this.form.addControl(campo, new FormControl(''));
+    //   }
+    // }));
 
-    this.form.valueChanges.subscribe(data => console.log(data));
-    this.form.controls.name.valueChanges.subscribe(data => console.log(data));
-    this.form.controls.name.setValue('Ramon');
-    this.form.controls.lastName.setValue('Sosa');
+    // (this.form.controls.skills as FormArray).push(new FormControl('Hola', Validators.required));
+
+    // this.user.skills.forEach(item => {
+    //   (this.form.controls.skills as FormArray).push(new FormControl(item));
+    // });
+
+
+    // this.form.valueChanges.subscribe(data => console.log(data));
+    // this.form.controls.name.valueChanges.subscribe(data => console.log(data));
+    // this.form.controls.name.setValue('Ramon');
+    // this.form.controls.lastName.setValue('Sosa');
 
     // validación de confirmación de password
     // tslint:disable-next-line:max-line-length
     this.form.controls.confpassword.setValidators([Validators.required, this.reviewPassword.bind(this.form)]);
     // se envía como this la forma a la función
+
+    Object.keys(this.user).forEach((item) => {
+      if (this.user[item] instanceof Array) {
+        this.user[item].forEach(item2 => {
+          (this.form.controls[item] as FormArray).push(new FormControl(item2));
+        });
+      }
+    });
+
+    this.form.setValue(this.user);
   }
 
   ngOnInit() {
@@ -56,7 +82,7 @@ export class FormdataComponent implements OnInit {
         }
       );
 
-    this.alertService.mostrarVentana({ title: 'hola', text: '', type: 'success', confirmButtonText: 'Aceptar' });
+    // this.alertService.mostrarVentana({ title: 'hola', text: '', type: 'success', confirmButtonText: 'Aceptar' });
 
   }
 
