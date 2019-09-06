@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SongsService } from '../../services/songs.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertasService } from 'src/app/services/alertas.service';
 
 @Component({
   selector: 'app-songs',
@@ -11,7 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SongsComponent implements OnInit {
   canciones: any[];
   constructor(private router: Router,
-              private songsService: SongsService) {
+              private songsService: SongsService,
+              private alertService: AlertasService) {
 
   }
 
@@ -22,9 +24,13 @@ export class SongsComponent implements OnInit {
 
   ngOnInit() {
     // this.canciones = this.songsService.getSongs();
+    this.alertService.showLoading();
     this.songsService.getSongs().subscribe
       ((songs: any) => {
         this.canciones = songs;
+        this.alertService.hideLoading();
+      }, (err) => {
+        this.alertService.hideLoading();
       });
     // console.log(this.canciones);
   }

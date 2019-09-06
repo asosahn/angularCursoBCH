@@ -1,0 +1,31 @@
+<div class="container mt-5 animated fadeInRight faster">
+  <div class="row">
+    <div class="col-md-12 col-lg-6 mx-auto">
+      <h1 class="text-center">Inicio de Sesión</h1>
+      <form #form="ngForm" (ngSubmit)="inicioSesion(form)">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1"
+            name="username"
+            ngModel
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            required
+            [ngClass]="{'is-invalid': isInvalid('username', form)}"
+            >
+            <app-errors [errors]="returnErrors('username', form)" class="invalid-feedback"></app-errors>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" ngModel name="password" required [ngClass]="{'is-invalid': isInvalid('password', form)}" id="exampleInputPassword1" placeholder="Password">
+            <app-errors [errors]="returnErrors('password', form)" class="invalid-feedback"></app-errors>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+  </div>
+</div>

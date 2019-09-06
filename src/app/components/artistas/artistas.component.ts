@@ -1,3 +1,4 @@
+import { AlertasService } from './../../services/alertas.service';
 import { ArtistsService } from '../../services/artists.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,7 +15,8 @@ export class ArtistasComponent implements OnInit {
   artistas: any[] = [];
   constructor(
     private router: Router,
-    private artistsService: ArtistsService) {
+    private artistsService: ArtistsService,
+    private alertService: AlertasService) {
     //  this.activedRouter.params.subscribe(params => {
     //    console.log(params);
     //  });
@@ -37,6 +39,7 @@ export class ArtistasComponent implements OnInit {
 
   ngOnInit() {
     // forma de promesa (then, catch)
+    this.alertService.showLoading();
     this.artistsService.getArtists()
       .then(artistas => {
         const preArtistas = _.cloneDeep(artistas);
@@ -44,8 +47,10 @@ export class ArtistasComponent implements OnInit {
           artista.description = `${artista.description.substring(0, 100)} ...`;
           return artista;
         });
+        this.alertService.hideLoading();
       })
       .catch((err) => {
+        this.alertService.hideLoading();
         console.log(err);
       });
 

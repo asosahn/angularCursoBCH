@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formdata',
@@ -23,7 +24,7 @@ export class FormdataComponent implements OnInit {
     confpassword: ''
   };
   countries: any[];
-  constructor(private http: HttpClient, private alertService: AlertasService) {
+  constructor(private http: HttpClient, private alertService: AlertasService, private toastr: ToastrService) {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required], this.exists),
@@ -35,7 +36,7 @@ export class FormdataComponent implements OnInit {
       password: new FormControl(''),
       confpassword: new FormControl('')
     });
-
+    // this.toastr.success('Hello world!', 'Toastr fun!');
     // this.form = new FormGroup({});
     // Object.keys(this.user).forEach((campo => {
     //   if ( this.user[campo] instanceof Array ) {
