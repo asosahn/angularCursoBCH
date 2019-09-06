@@ -2,22 +2,12 @@ import { Subject, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Injectable } from '@angular/core';
 
-
-// title: 'Artista Agregado!',
-// text: '',
-// type: 'success',
-// confirmButtonText: 'Aceptar'
 interface AlertParametros {
   title: string;
   text: string;
   type: string;
   confirmButtonText: string;
 }
-
-// enum tipoVentanas {
-//   success = 'success';
-//   error = 'error';
-// }
 
 @Injectable({
   providedIn: 'root'

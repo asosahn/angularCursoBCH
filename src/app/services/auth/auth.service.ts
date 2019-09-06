@@ -36,9 +36,7 @@ export class AuthService {
   }
 
   getToken(): string {
-    // if (!this.loggedUser && localStorage.getItem('btoken')) {
-    //   this.loggedUser = JSON.parse(atob(localStorage.getItem('btoken').split('.')[1]));
-    // }
+    this.getUser();
     return localStorage.getItem('btoken');
   }
 
@@ -71,5 +69,13 @@ export class AuthService {
   catchErrors = ( error: HttpErrorResponse ): Observable<any>  => {
     // this.toastr.error('Error!', error.error.message);
     return throwError(error);
+  }
+
+  getUser() {
+    if (!this.loggedUser && localStorage.getItem('btoken')) {
+      const { user } = JSON.parse(atob(localStorage.getItem('btoken').split('.')[1]));
+      this.loggedUser = user;
+    }
+    return this.loggedUser;
   }
 }

@@ -1,3 +1,4 @@
+import { AdminGuard } from './services/authguard/admin.guard';
 import { LoginGuard } from './services/authguard/login.guard';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -20,6 +21,7 @@ import { AuthGuard } from './services/authguard/auth.guard';
 const routes: Routes = [
   { path: '', component: PrincipalComponent,
     canActivate: [AuthGuard],
+    // canActivateChild: [AuthGuard],
     children:
     [
       { path: '', component: HomeComponent },
