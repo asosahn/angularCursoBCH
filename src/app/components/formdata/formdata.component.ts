@@ -56,7 +56,9 @@ export class FormdataComponent implements OnInit {
     //   }
     // });
     this.user.skills.forEach((item) => {
-      (this.form.controls['skills'] as FormArray).push(new FormControl(item));
+      (this.form.controls.skills as FormArray).push(new FormControl(item, Validators.required));
+      // otra forma de acceder al control
+      // (this.form.controls['skills'] as FormArray).push(new FormControl(item, Validators.required));
     });
     this.form.setValue(this.user);
   }
