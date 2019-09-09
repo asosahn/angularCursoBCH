@@ -1,6 +1,6 @@
 import { AlertasService } from './../../services/alertas.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -64,7 +64,10 @@ export class FormdataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('https://restcountries.eu/rest/v2/')
+    this.http.get('https://restcountries.eu/rest/v2/',
+    {
+      headers: new HttpHeaders({ intercept: 'false' })
+    })
       .subscribe(
         (countries: any[]) => {
           this.countries = countries;

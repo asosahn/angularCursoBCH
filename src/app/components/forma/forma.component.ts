@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -38,7 +38,9 @@ export class FormaComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.http.get('https://restcountries.eu/rest/v2/')
+    this.http.get('https://restcountries.eu/rest/v2/', {
+      headers: new HttpHeaders({ intercept: 'false' })
+    })
     .subscribe(
       (countries: any[]) => {
         this.countries = countries;

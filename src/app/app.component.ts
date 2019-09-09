@@ -1,6 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { AlertasService } from 'src/app/services/alertas.service';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -8,12 +10,34 @@ import Swal from 'sweetalert2';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  userActivity;
-  userInactive: Subject<any> = new Subject();
-  showLoading: Subscription;
-  private loading$ = new Subject<any>();
- constructor() {
+export class AppComponent implements OnDestroy {
+  // userActivity;
+  // userInactive: Subject<any> = new Subject();
+  SubscribeToLoading: Subscription;
+ constructor(private spinner: NgxSpinnerService,
+             private alertServices: AlertasService) {
+
+ this.SubscribeToLoading = this.alertServices.subscribeToLoadingSubject()
+ .subscribe(
+   ((show: boolean) => {
+     if (show) {
+      this.spinner.show();
+     } else  {
+      this.spinner.hide();
+     }
+   })
+ );
+
+  // this.spinner.show();
+  // setTimeout(() => {
+    /** spinner ends after 5 seconds */
+  //   this.spinner.hide();
+  // }, 5000);
+
+
+
+
+
 
   // this.setTimeout();
   // this.userInactive.subscribe(() => {
@@ -36,4 +60,9 @@ export class AppComponent {
 //   clearTimeout(this.userActivity);
 //   this.setTimeout();
 // }
+
+ngOnDestroy() {
+  this.SubscribeToLoading.unsubscribe();
+}
+
 }

@@ -13,9 +13,17 @@ export class InterceptorService implements HttpInterceptor {
               private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let cloneRequest = req.clone();
-    if (this.authService.isLoggedIn()) {
+    console.log('paso por interceptor');
+    // si el header tiene intecertp false no entra a colocar el token
+    if (this.authService.isLoggedIn() && cloneRequest.headers.get('intercept') !== 'false') {
       cloneRequest = req.clone({
         setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` }
+      });
+    }
+    // para quitar el header intercept
+    if (cloneRequest.headers.get('intercept') === 'false') {
+      cloneRequest = req.clone({
+        headers: req.headers.delete('intercept')
       });
     }
     return next.handle(cloneRequest)

@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import para poder usar ngModel y Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// importando loading
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // importaciones de componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +22,7 @@ import { CardSongComponent } from './components/card-song/card-song.component';
 import { FormaComponent } from './components/forma/forma.component';
 import { ErrorsComponent } from './components/errors/errors.component';
 import { AgregarArtistaComponent } from './components/agregar-artista/agregar-artista.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+
 import { FormdataComponent } from './components/formdata/formdata.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
@@ -52,8 +54,8 @@ import { InterceptorService } from './guard/interceptor.service';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
