@@ -1,1 +1,65 @@
-<p>signup works!</p>
+
+<div class="container mt-5 animated fadeInLeft">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center">Crear Usuario</h1>
+      </div>
+      <div class="col-lg-6 col-md-12 mx-auto">
+          <form [formGroup]="form" (ngSubmit)="singUp()">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Nombre *</label>
+                <input formControlName="firstName" type="text" class="form-control" id="firstName"
+                aria-describedby="emailHelp" placeholder="Nombre"
+                [ngClass]="{'is-invalid': isInvalid('firstName', form)}"
+                >
+                <app-errors [errors]="returnErrors('firstName', form)" class="invalid-feedback"></app-errors>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Apellido *</label>
+                <input type="text" class="form-control" id="lastName"
+                aria-describedby="emailHelp" placeholder="Apellido"
+                [ngClass]="{'is-invalid': isInvalid('lastName', form)}"
+                formControlName="lastName"
+                >
+                <app-errors [errors]="returnErrors('lastName', form)" class="invalid-feedback"></app-errors>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address/Username *</label>
+                <input type="email" class="form-control" id="username"
+                aria-describedby="emailHelp" placeholder="Enter email"
+                [ngClass]="{'is-invalid': isInvalid('username', form)}"
+                formControlName="username"
+                >
+                <app-errors [errors]="returnErrors('username', form)" class="invalid-feedback"></app-errors>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password *</label>
+                <input type="password" class="form-control" id="password"
+                placeholder="Password"
+                [ngClass]="{'is-invalid': isInvalid('password', form)}"
+                formControlName="password"
+                >
+                <app-errors [errors]="returnErrors('password', form)" class="invalid-feedback"></app-errors>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Conf. Password *</label>
+                <input type="password" class="form-control" id="confpassword"
+                placeholder="Password"
+                [ngClass]="{'is-invalid': isInvalid('confpassword', form)}"
+                formControlName="confpassword"
+                >
+                <app-errors [errors]="returnErrors('confpassword', form)" class="invalid-feedback"></app-errors>
+              </div>
+
+              <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-block">Crear</button>
+            </form>
+            <div class="mt-2">
+              <a [routerLink]="['/login']">Iniciar Sesión</a>
+            </div>
+      </div>
+    </div>
+  </div>

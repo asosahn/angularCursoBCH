@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5 animated fadeInRight">
   <div class="row">
     <div class="col-12">
       <h1 class="text-center">Iniciar Sesión</h1>
@@ -13,7 +13,7 @@
               name="username"
               ngModel
               required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 
               >
               <app-errors [errors]="returnErrors('username', form)" class="invalid-feedback"></app-errors>
@@ -31,6 +31,9 @@
             </div>
             <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-block">Iniciar</button>
           </form>
+          <div class="mt-2">
+              <a [routerLink]="['/singup']">Crear Usuario</a>
+            </div>
     </div>
   </div>
 </div>

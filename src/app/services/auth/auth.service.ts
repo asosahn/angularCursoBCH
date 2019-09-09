@@ -69,4 +69,16 @@ export class AuthService {
      );
   }
 
+  signUp(user: any) {
+    return this.http.post<any>(`${URL_AUTH}/create`, user)
+    .pipe(
+      tap((userWithTokens: any) => this.doLogginUser(userWithTokens, userWithTokens.auth)),
+      mapTo(true),
+      catchError((error: HttpErrorResponse) => {
+        console.log(error);
+        return throwError(error);
+      })
+    );
+  }
+
 }

@@ -1,3 +1,5 @@
+
+import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthGuard } from './guard/auth.guard';
 import { PrincipalComponent } from './components/principal/principal.component';
 
@@ -13,6 +15,7 @@ import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { SongsComponent } from './components/songs/songs.component';
 import { FormdataComponent } from './components/formdata/formdata.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { LoginGuard } from './guard/login.guard';
 
 
 const routes: Routes = [
@@ -30,7 +33,8 @@ const routes: Routes = [
       { path: 'formdata', component: FormdataComponent },
     ]
   },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: 'singup', component: SignupComponent, canActivate: [LoginGuard] },
   // si no encuentra la ruta, hace redireccionamiento con redirectTo
   { pathMatch: 'full', path: '**', redirectTo: '' }
 ];
