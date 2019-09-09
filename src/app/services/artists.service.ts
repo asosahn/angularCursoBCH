@@ -11,7 +11,7 @@ export interface Artista {
   band?: boolean;
 }
 
-const URL_ARTISTS = 'http://bch.hazsk.com/artist';
+const URL_ARTISTS = 'http://localhost:3010/artist';
 @Injectable({
   providedIn: 'root'
 })

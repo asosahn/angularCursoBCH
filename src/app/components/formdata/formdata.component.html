@@ -113,6 +113,18 @@
         </div>
 
         <div class="form-group row">
+            <label class="col-2 col-form-label">Upload:</label>
+            <div class="col-md-8">
+                <input type="file" (change)="changeFile($event)" />
+
+                  <div class="progress" *ngIf="uploadResponse.message" >
+                      <div class="progress-bar" role="progressbar" [style.width.%]="uploadResponse?.message" aria-valuemin="0" aria-valuemax="100">{{uploadResponse?.message}}%</div>
+                    </div>
+
+                    <img width="100" [src]="image" alt="..." class="img-thumbnail">
+    </div>
+  </div>
+        <div class="form-group row">
           <label class="col-2 col-form-label">&nbsp;</label>
           <div class="input-group col-md-8">
             <button type="submit" class="btn btn-outline-primary">
@@ -121,11 +133,31 @@
           </div>
         </div>
       </form>
-      <pre>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">type</th>
+              <th scope="col">size</th>
+              <th scope="col">actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of allFiles; index as idx">
+              <td>{{ idx + 1 }}</td>
+              <td>{{file.originalname}}</td>
+              <td>{{file.mimetype}}</td>
+              <td>{{file.size | filesize }}</td>
+              <td><button (click)="download(file)" class="btn btn-primary btn-sm">bajar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      <!-- <pre>
         {{ form.value | json }}
           {{form.valid}}
           {{form.status}}
-        </pre>
+        </pre> -->
     </div>
   </div>
 </div>

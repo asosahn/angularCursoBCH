@@ -1,3 +1,4 @@
+import { GridComponent } from './components/grid/grid.component';
 import { AdminGuard } from './services/authguard/admin.guard';
 import { LoginGuard } from './services/authguard/login.guard';
 import { SignupComponent } from './components/auth/signup/signup.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'forma', component: FormaComponent },
       { path: 'agregarArtista', component: AgregarArtistaComponent },
       { path: 'formdata', component: FormdataComponent },
+      { path: 'grid', component: GridComponent },
     ]
   },
   {

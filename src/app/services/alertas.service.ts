@@ -28,7 +28,7 @@ export class AlertasService {
   }
 
   loadingSubscription(): Observable<any> {
-    return this.loading.asObservable();
+    return this.loading;
   }
 
 }

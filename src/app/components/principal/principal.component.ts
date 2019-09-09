@@ -34,7 +34,7 @@ export class PrincipalComponent implements OnInit {
   //     this.userActivity = setTimeout(() => this.userInactive.next(), 20000);
   //   }
   setTimeout() {
-      this.userActivity = setTimeout(() => this.timeOutSession(), 30 * 60 * 1000);
+      this.userActivity = setTimeout(() => this.timeOutSession(), 5 * 60 * 1000);
     }
     timeOutSession() {
       Swal.fire({

@@ -1,5 +1,6 @@
+import { UploadService } from './../../services/upload.service';
 import { AlertasService } from './../../services/alertas.service';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -20,11 +21,25 @@ export class FormdataComponent implements OnInit {
     email: 'ramonsosadiaz@gmail.com',
     skills: ['Hola', 'Angular'],
     country: 'HN',
-    password: '',
-    confpassword: ''
+    password: 'sosadiaz',
+    confpassword: 'sosadiaz',
+    // avatar: {
+    //   name: '',
+    //   lastModified: '',
+    //   lastModifiedDate: '',
+    //   size: null,
+    //   type: ''
+    // }
+    avatar: ''
   };
   countries: any[];
-  constructor(private http: HttpClient, private alertService: AlertasService, private toastr: ToastrService) {
+  files;
+  allFiles: any[] = [];
+  uploadResponse = { status: '', message: undefined, filePath: '' };
+  image: any = '';
+  constructor(private http: HttpClient, private alertService: AlertasService, private toastr: ToastrService,
+              private formBuilder: FormBuilder,
+              private uploadService: UploadService) {
 
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required], this.exists),
@@ -34,7 +49,15 @@ export class FormdataComponent implements OnInit {
       gender: new FormControl(''),
       country: new FormControl(''),
       password: new FormControl(''),
-      confpassword: new FormControl('')
+      confpassword: new FormControl(''),
+      // avatar: new FormGroup({
+      //   name: new FormControl(''),
+      //   lastModified: new FormControl(''),
+      //   lastModifiedDate: new FormControl(''),
+      //   size: new FormControl(0),
+      //   type: new FormControl(''),
+      // })
+      avatar: new FormControl('')
     });
     // this.toastr.success('Hello world!', 'Toastr fun!');
     // this.form = new FormGroup({});
@@ -82,9 +105,11 @@ export class FormdataComponent implements OnInit {
 
         }
       );
-
-    // this.alertService.mostrarVentana({ title: 'hola', text: '', type: 'success', confirmButtonText: 'Aceptar' });
-
+    this.uploadService.files().subscribe(
+      (data => {
+        this.allFiles = data;
+      })
+    );
   }
 
 
@@ -100,12 +125,29 @@ export class FormdataComponent implements OnInit {
     // return this.form.get(control).errors;
   }
   saveForm() {
-    // this.form.markAsDirty({ onlySelf: true });
     console.log(this.form);
     this.validateAllFormFields(this.form);
     if (this.form.valid) {
-      console.log(this.form.value);
-      console.log(this.form);
+      const formData = new FormData();
+      const values = this.form.value;
+      formData.append('file', values.avatar[0], values.avatar[0].name);
+      delete values.avatar;
+      formData.append('body', JSON.stringify(values));
+
+      this.uploadService.upload(formData, this.form.value).subscribe(
+        ((res: any) => {
+          if (res && res.status === 'progress') {
+            this.uploadResponse = res;
+            // tslint:disable-next-line:triple-equals
+            if (res.message == 100) {
+              this.uploadResponse.message = undefined;
+            }
+          } else if (res.originalname) {
+            this.allFiles.push(res);
+          }
+        }),
+        err => console.log(err)
+      );
     }
     // this.form.reset();
 
@@ -174,6 +216,26 @@ export class FormdataComponent implements OnInit {
 
   addSkills() {
     (this.form.controls.skills as FormArray).push(new FormControl('', Validators.required));
+  }
+
+  changeFile(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files;
+      this.files = file;
+      this.form.controls['avatar'].setValue(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.onload = () => {
+        this.image = reader.result;
+      };
+    }
+  }
+
+  download(file: any) {
+    this.uploadService.download(file).subscribe(
+      (res =>  console.log(res))
+    );
+
   }
 
 }

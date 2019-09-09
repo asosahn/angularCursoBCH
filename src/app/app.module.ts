@@ -6,8 +6,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import para poder usar ngModel y Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AgGridModule } from 'ag-grid-angular';
+import 'ag-grid-enterprise';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 // importaciones de componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +33,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { InterceptorService } from './services/auth/interceptor.service';
+import { FilesizePipe } from './pipes/filesize.pipe';
+import { GridComponent } from './components/grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +53,9 @@ import { InterceptorService } from './services/auth/interceptor.service';
     FormdataComponent,
     LoginComponent,
     SignupComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    FilesizePipe,
+    GridComponent
 
   ],
   imports: [
@@ -58,7 +66,9 @@ import { InterceptorService } from './services/auth/interceptor.service';
     NgxSpinnerModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    RxReactiveFormsModule,
+    ToastrModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   providers: [
     {

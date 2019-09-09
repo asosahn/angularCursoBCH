@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, mapTo, catchError } from 'rxjs/operators';
-import { throwError, Observable } from 'rxjs';
+import { tap, mapTo, catchError, switchMap } from 'rxjs/operators';
+import { throwError, Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-const URL = 'http://bch.hazsk.com/auth';
+const URL = 'http://localhost:3010/auth';
 @Injectable({
   providedIn: 'root'
 })
@@ -77,5 +77,19 @@ export class AuthService {
       this.loggedUser = user;
     }
     return this.loggedUser;
+  }
+
+  refreshToken() {
+    return this.http.post<any>(`${URL}/refreshtoken`, {
+      refreshToken: this.getRefreshToken()
+    }).pipe(
+      tap((tokens: any) => {
+        this.storeTokens(tokens.auth);
+      })
+    );
+  }
+
+  getRefreshToken(): string {
+    return localStorage.getItem('bRefresh');
   }
 }

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 
-const URL_SONGS = 'http://bch.hazsk.com/songs';
+const URL_SONGS = 'http://localhost:3010/songs';
 
 @Injectable({
   providedIn: 'root'
