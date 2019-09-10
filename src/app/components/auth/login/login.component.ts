@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormErrors } from '../../errors/formErrors';
 import { AlertasService } from 'src/app/services/alertas.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,16 +17,16 @@ export class LoginComponent extends FormErrors implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private alertServices: AlertasService) {
-    super();
-   }
+  super();
+}
 
-  ngOnInit() {
-  }
+ngOnInit() {
+}
 
-  iniciarSesion(form: NgForm) {
-    if (form.valid) {
-      this.alertServices.ShowOrHide(true);
-      this.authService.login(form.value)
+iniciarSesion(form: NgForm) {
+  if (form.valid) {
+    this.alertServices.ShowOrHide(true);
+    this.authService.login(form.value)
       .subscribe(
         // recibo la respuesta del observable
         ((respuesta: any) => {
@@ -39,6 +40,6 @@ export class LoginComponent extends FormErrors implements OnInit {
           console.log('en componente login ', error);
         })
       );
-    }
   }
+}
 }

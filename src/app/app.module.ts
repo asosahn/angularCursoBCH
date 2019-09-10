@@ -7,6 +7,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // importando loading
 import { NgxSpinnerModule } from 'ngx-spinner';
+// importando toast alerts
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 // importaciones de componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -55,7 +58,9 @@ import { InterceptorService } from './guard/interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     {

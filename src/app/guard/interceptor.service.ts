@@ -4,13 +4,15 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let cloneRequest = req.clone();
     console.log('paso por interceptor');
@@ -36,10 +38,9 @@ export class InterceptorService implements HttpInterceptor {
     if (error.status === 401) {
       if (this.router.url !== '/login') {
         this.authService.logOut().subscribe();
-      } else {
-        //
       }
     }
+    this.toastr.error(error.error.message, 'Error');
     return throwError(error);
   }
 }
