@@ -80,5 +80,20 @@ export class AuthService {
       })
     );
   }
+  // api de resfrecamiento de tokens
+  refreshToken() {
+    return this.http.post<any>(`${URL_AUTH}/refreshtoken`, {
+      refreshToken: this.getRefreshToken()
+    })
+    .pipe(
+      tap((user: any) => {
+        this.storeTokens(user.auth);
+      })
+    );
+  }
+  // obtener de local storage el refresh token
+  getRefreshToken() {
+    return localStorage.getItem('bRefresh');
+  }
 
 }
