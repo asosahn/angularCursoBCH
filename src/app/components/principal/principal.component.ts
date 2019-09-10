@@ -17,7 +17,7 @@ export class PrincipalComponent implements OnInit {
   setTimeoutBegin() {
     this.userActivity = setTimeout(() => {
       this.timeOutSession();
-    }, 2000);
+    }, 60 * 60 * 1000);
   }
   timeOutSession() {
     this.alertService.mostrarVentana({
