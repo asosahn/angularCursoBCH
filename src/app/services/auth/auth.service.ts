@@ -1,10 +1,12 @@
+import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap, mapTo, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
 const URL_AUTH = 'http://bch.hazsk.com/auth';
+const URL = environment.url;
+console.log(URL);
 @Injectable({
   providedIn: 'root'
 })
