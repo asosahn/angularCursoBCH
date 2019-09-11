@@ -1,3 +1,4 @@
+import { FileuploadComponent } from './components/fileupload/fileupload.component';
 
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'forma', component: FormaComponent },
       { path: 'agregarArtista', component: AgregarArtistaComponent },
       { path: 'formdata', component: FormdataComponent },
+      { path: 'upload', component: FileuploadComponent },
     ]
   },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },

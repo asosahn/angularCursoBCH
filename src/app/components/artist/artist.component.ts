@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { ArtistsService } from '../../services/artists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -9,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtistComponent implements OnInit {
   artista: {} = {};
+  // SubscribeToChannelArtists: Subscription;
   constructor(private router: Router,
               private activedRoute: ActivatedRoute,
               private artistsService: ArtistsService) {
+
+
   }
   irAtras() {
     this.router.navigate(['/artistas']);

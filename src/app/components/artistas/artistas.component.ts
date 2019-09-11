@@ -1,9 +1,10 @@
 import { AlertasService } from './../../services/alertas.service';
 import { ArtistsService } from '../../services/artists.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 // import { ArtistsService } from '../../services/artists.service';
 
 @Component({
@@ -12,11 +13,14 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./artistas.component.css']
 })
 export class ArtistasComponent implements OnInit {
+
   artistas: any[] = [];
+
   constructor(
     private router: Router,
     private artistsService: ArtistsService,
     private alertService: AlertasService) {
+
     //  this.activedRouter.params.subscribe(params => {
     //    console.log(params);
     //  });
@@ -36,6 +40,7 @@ export class ArtistasComponent implements OnInit {
     console.log('recibí en padre ' + eventChild);
     this.router.navigate(['/artist', eventChild]);
   }
+
 
   ngOnInit() {
     // forma de promesa (then, catch)

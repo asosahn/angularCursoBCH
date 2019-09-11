@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap, mapTo, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-const URL_AUTH = 'http://bch.hazsk.com/auth';
+const URL_AUTH = 'http://localhost:3010/auth';
 const URL = environment.url;
 console.log(URL);
 @Injectable({

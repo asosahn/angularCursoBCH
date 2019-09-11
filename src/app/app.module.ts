@@ -31,6 +31,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { InterceptorService } from './guard/interceptor.service';
+import { FileuploadComponent } from './components/fileupload/fileupload.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { InterceptorService } from './guard/interceptor.service';
     FormdataComponent,
     LoginComponent,
     SignupComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    FileuploadComponent
 
   ],
   imports: [

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError, of, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 // import { HttpClient } from '@angular/common/http';
 
@@ -17,6 +17,7 @@ const URL_ARTISTS = 'http://bch.hazsk.com/artist';
 })
 export class ArtistsService {
   artistas: Artista[] = [];
+
   constructor(private http: HttpClient) { }
 
   // getArtists(): Observable<any> {
@@ -36,11 +37,13 @@ export class ArtistsService {
   //   return this.artistas;
   // }
 
+
   getArtists(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get(URL_ARTISTS).toPromise()
         .then((resp: Artista[]) => {
           this.artistas = resp;
+
           resolve(this.artistas);
         })
         .catch((err: any) => {
