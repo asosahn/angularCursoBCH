@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { map, mapTo, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable, Subject } from 'rxjs';
 
 const URL_PATH = 'http://bch.hazsk.com/auth';
 
@@ -10,7 +10,9 @@ const URL_PATH = 'http://bch.hazsk.com/auth';
   providedIn: 'root'
 })
 export class UploadService {
-
+  files: Array<any> = [];
+  // crear un canal para suscripción
+  subscriptionListenNewFiles = new Subject<any>();
   constructor(private http: HttpClient) { }
 
   upload(file: any) {
@@ -28,6 +30,9 @@ export class UploadService {
             const progress = Math.round(100 * event.loaded / event.total);
             return { status: 'progress', message: progress };
           case HttpEventType.Response:
+            this.files.push(event.body.file);
+            // para enviar a usuarios conectados al canal
+            this.subscriptionListenNewFiles.next(this.files);
             return event.body;
           default:
             return `Unhandled event: ${event.type}`;
@@ -36,8 +41,12 @@ export class UploadService {
     );
   }
 
+  canSubscribeToNewFiles() {
+    return this.subscriptionListenNewFiles;
+  }
 
   download(filename: any) {
+    console.log(filename);
     return this.http.post<Blob>(`${URL_PATH}/download`, { filename: filename.originalname },
     {
       responseType: 'blob' as 'json'
@@ -57,6 +66,20 @@ export class UploadService {
       mapTo(true),
       catchError(err => {
         return throwError(err);
+      })
+    );
+  }
+
+  getFiles(): Observable<any> {
+    return this.http.get<any>(`${URL_PATH}/files`)
+    .pipe(
+      map((res: Array<any>) => {
+        this.files = res;
+        return res;
+      }),
+      catchError(error => {
+        console.log(error);
+        return throwError(error);
       })
     );
   }

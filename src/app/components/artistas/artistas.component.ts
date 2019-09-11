@@ -1,10 +1,10 @@
+import { Subscription } from 'rxjs';
 import { AlertasService } from './../../services/alertas.service';
 import { ArtistsService } from '../../services/artists.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+
 // import { ArtistsService } from '../../services/artists.service';
 
 @Component({
@@ -12,15 +12,21 @@ import { Subscription } from 'rxjs';
   templateUrl: './artistas.component.html',
   styleUrls: ['./artistas.component.css']
 })
-export class ArtistasComponent implements OnInit {
+export class ArtistasComponent implements OnInit, OnDestroy {
+
 
   artistas: any[] = [];
-
+  suscriptionToNewArtists: Subscription;
   constructor(
     private router: Router,
     private artistsService: ArtistsService,
     private alertService: AlertasService) {
-
+    this.suscriptionToNewArtists = this.artistsService.canSubscribeToNewArtist().subscribe(
+      ((newArtist) => {
+        console.log('nuevo artista');
+        this.artistas.unshift({...newArtist, description: newArtist.description.substring(0, 100)});
+      })
+    );
     //  this.activedRouter.params.subscribe(params => {
     //    console.log(params);
     //  });
@@ -41,6 +47,16 @@ export class ArtistasComponent implements OnInit {
     this.router.navigate(['/artist', eventChild]);
   }
 
+  ngOnDestroy(): void {
+    this.suscriptionToNewArtists.unsubscribe()
+  }
+
+  SubStringArtistas(artistas: any) {
+    return _.orderBy(artistas.map(artista => {
+      artista.description = `${artista.description.substring(0, 100)} ...`;
+      return artista;
+    }), 'createdAt', 'desc');
+  }
 
   ngOnInit() {
     // forma de promesa (then, catch)
@@ -48,10 +64,11 @@ export class ArtistasComponent implements OnInit {
     this.artistsService.getArtists()
       .then(artistas => {
         const preArtistas = _.cloneDeep(artistas);
-        this.artistas = preArtistas.map(artista => {
-          artista.description = `${artista.description.substring(0, 100)} ...`;
-          return artista;
-        });
+        this.artistas = this.SubStringArtistas(preArtistas);
+        // this.artistas = preArtistas.map(artista => {
+        //   artista.description = `${artista.description.substring(0, 100)} ...`;
+        //   return artista;
+        // });
         this.alertService.hideLoading();
       })
       .catch((err) => {

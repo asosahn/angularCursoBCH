@@ -1,20 +1,30 @@
+import { Subscription } from 'rxjs';
 import { UploadService } from './../../services/upload/upload.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-fileupload',
   templateUrl: './fileupload.component.html',
   styleUrls: ['./fileupload.component.css']
 })
-export class FileuploadComponent implements OnInit {
+export class FileuploadComponent implements OnInit, OnDestroy {
   form: FormGroup;
   uploadResponse;
   files;
+  allFilesUploaded: Array<any> = [];
+  // para suscripción a canal de carga de archivos
+  susbscriptionToFiles: Subscription;
   constructor(private uploadService: UploadService) {
     this.form = new FormGroup({
       file: new FormControl('', Validators.required)
     });
+    // suscripción para escuchar cuando se crea un archivo nuevo
+    this.susbscriptionToFiles = this.uploadService.canSubscribeToNewFiles().subscribe
+      ((filesFromSubscription: any) => {
+        console.log('escuchando canal');
+        this.allFilesUploaded = filesFromSubscription;
+      });
 
    }
 
@@ -24,6 +34,10 @@ export class FileuploadComponent implements OnInit {
        this.form.controls.file.setValue($event.target.files[0]);
      }
    }
+
+   ngOnDestroy() {
+    this.susbscriptionToFiles.unsubscribe();
+  }
 
    saveForm() {
      if (this.form.valid) {
@@ -37,7 +51,9 @@ export class FileuploadComponent implements OnInit {
             this.uploadResponse = res;
             console.log(res.message);
             if (res.message === 100) {
-              // this.uploadResponse.message = undefined;
+              setTimeout(() => {
+                this.uploadResponse.message = undefined;
+              }, 2000);
             }
           } else if (res.file && res.file.originalname) {
             // this.allFiles.push(res.file);
@@ -49,7 +65,18 @@ export class FileuploadComponent implements OnInit {
      }
    }
 
+  BajarArchivo(file: any) {
+    this.uploadService.download(file).subscribe();
+  }
+
   ngOnInit() {
+    this.uploadService.getFiles().subscribe(
+      ((filesFromServer: any) => {
+        this.allFilesUploaded = filesFromServer;
+      }), (err => {
+        console.log(err);
+      })
+    );
   }
 
 }

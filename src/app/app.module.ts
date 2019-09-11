@@ -11,6 +11,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+// importar grid
+import { AgGridModule } from 'ag-grid-angular';
+
 // importaciones de componentes
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +35,9 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 import { InterceptorService } from './guard/interceptor.service';
 import { FileuploadComponent } from './components/fileupload/fileupload.component';
+import { FilesizePipe } from './pipes/filesize.pipe';
+import { CombinadoArtistaComponent } from './components/combinado-artista/combinado-artista.component';
+import { GridComponent } from './components/grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +57,10 @@ import { FileuploadComponent } from './components/fileupload/fileupload.componen
     LoginComponent,
     SignupComponent,
     PrincipalComponent,
-    FileuploadComponent
+    FileuploadComponent,
+    FilesizePipe,
+    CombinadoArtistaComponent,
+    GridComponent
 
   ],
   imports: [
@@ -62,7 +71,8 @@ import { FileuploadComponent } from './components/fileupload/fileupload.componen
     ReactiveFormsModule,
     NgxSpinnerModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    AgGridModule.withComponents([])
   ],
   providers: [
     {

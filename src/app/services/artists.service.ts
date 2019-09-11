@@ -17,7 +17,7 @@ const URL_ARTISTS = 'http://bch.hazsk.com/artist';
 })
 export class ArtistsService {
   artistas: Artista[] = [];
-
+  canalNuevoArtista = new Subject<any>();
   constructor(private http: HttpClient) { }
 
   // getArtists(): Observable<any> {
@@ -37,6 +37,9 @@ export class ArtistsService {
   //   return this.artistas;
   // }
 
+  canSubscribeToNewArtist(): Observable<any> {
+    return this.canalNuevoArtista;
+  }
 
   getArtists(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -103,6 +106,7 @@ export class ArtistsService {
     return this.http.post<any>(URL_ARTISTS, artista).pipe(
       map(( newArtista: Artista | any) => {
         this.artistas.push(newArtista);
+        this.canalNuevoArtista.next(newArtista);
         return newArtista;
       })
       // catchError((err: Error | any) => {
