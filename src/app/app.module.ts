@@ -39,6 +39,8 @@ import { FilesizePipe } from './pipes/filesize.pipe';
 import { CombinadoArtistaComponent } from './components/combinado-artista/combinado-artista.component';
 import { GridComponent } from './components/grid/grid.component';
 
+import 'ag-grid-enterprise';
+
 @NgModule({
   declarations: [
     AppComponent,
