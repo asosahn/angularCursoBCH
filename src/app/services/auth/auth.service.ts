@@ -4,8 +4,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap, mapTo, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { SocketService } from '../socket/socket.service';
 const URL_AUTH = 'http://bch.hazsk.com/auth';
-const URL = environment.url;
+const URL = environment.url_root;
 console.log(URL);
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ console.log(URL);
 export class AuthService {
   loggedUser: any;
   constructor(private http: HttpClient,
-              private router: Router) { }
+              private router: Router,
+              private socketio: SocketService) { }
   // guardar tokens en localStorage
   storeTokens(tokens: any) {
     localStorage.setItem('btoken', tokens.token);
@@ -54,6 +56,7 @@ export class AuthService {
   executeLogOut() {
     this.removeTokens();
     this.loggedUser = undefined;
+    this.socketio.disconnect();
     // mandar a la ruta login
     this.router.navigate(['/login']);
   }
@@ -96,6 +99,13 @@ export class AuthService {
   // obtener de local storage el refresh token
   getRefreshToken() {
     return localStorage.getItem('bRefresh');
+  }
+
+  getUser() {
+    if (!this.loggedUser) {
+      this.loggedUser = JSON.parse(atob(this.getToken().split('.')[1])).user;
+    }
+    return this.loggedUser;
   }
 
 }

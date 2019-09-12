@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="form-group row" formArrayName="skills"
-            *ngFor="let int of form?.controls['skills']?.controls; let idx = index">
+            *ngFor="let int of form?.controls['skills']['controls']; let idx = index">
             <label class="col-2 col-form-label">&nbsp;</label>
             <div class="col-8">
 

@@ -1,4 +1,5 @@
-import { Subscription } from 'rxjs';
+import { SocketService } from './../../services/socket/socket.service';
+import { Subscription, SubscriptionLike } from 'rxjs';
 import { AlertasService } from './../../services/alertas.service';
 import { ArtistsService } from '../../services/artists.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -17,13 +18,21 @@ export class ArtistasComponent implements OnInit, OnDestroy {
 
   artistas: any[] = [];
   suscriptionToNewArtists: Subscription;
+  listenCreateArtists: Subscription;
   constructor(
     private router: Router,
     private artistsService: ArtistsService,
-    private alertService: AlertasService) {
+    private alertService: AlertasService,
+    private socket: SocketService) {
     this.suscriptionToNewArtists = this.artistsService.canSubscribeToNewArtist().subscribe(
       ((newArtist) => {
         console.log('nuevo artista');
+        this.artistas.unshift({...newArtist, description: newArtist.description.substring(0, 100)});
+      })
+    );
+
+    this.listenCreateArtists = this.socket.onMessage('artist').subscribe(
+      ((newArtist) => {
         this.artistas.unshift({...newArtist, description: newArtist.description.substring(0, 100)});
       })
     );
@@ -48,7 +57,8 @@ export class ArtistasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.suscriptionToNewArtists.unsubscribe()
+    this.suscriptionToNewArtists.unsubscribe();
+    this.listenCreateArtists.unsubscribe();
   }
 
   SubStringArtistas(artistas: any) {

@@ -1,6 +1,8 @@
+
 import { AuthService } from './../../services/auth/auth.service';
 import { AlertasService } from 'src/app/services/alertas.service';
 import { Component, OnInit, HostListener } from '@angular/core';
+import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
   selector: 'app-principal',
@@ -10,9 +12,14 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class PrincipalComponent implements OnInit {
   userActivity: any;
   constructor(private alertService: AlertasService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private socketio: SocketService) {
     // ejecutar función de revisión de tiempo
     this.setTimeoutBegin();
+    if (this.authService.isLoggedIn()) {
+      this.socketio.connect();
+    }
+
   }
   setTimeoutBegin() {
     this.userActivity = setTimeout(() => {

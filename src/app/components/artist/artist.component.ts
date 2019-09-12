@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./artist.component.css']
 })
 export class ArtistComponent implements OnInit {
-  artista: {} = {};
+  artista: any = {};
   // SubscribeToChannelArtists: Subscription;
   constructor(private router: Router,
               private activedRoute: ActivatedRoute,
