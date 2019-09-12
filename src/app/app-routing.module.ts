@@ -1,3 +1,4 @@
+import { GraficosComponent } from './components/graficos/graficos.component';
 import { GridComponent } from './components/grid/grid.component';
 import { CombinadoArtistaComponent } from './components/combinado-artista/combinado-artista.component';
 import { FileuploadComponent } from './components/fileupload/fileupload.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'upload', component: FileuploadComponent },
       { path: 'combinado', component: CombinadoArtistaComponent },
       { path: 'grid', component: GridComponent },
+      { path: 'graficos', component: GraficosComponent },
     ]
   },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },

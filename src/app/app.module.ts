@@ -14,7 +14,20 @@ import { ToastrModule } from 'ngx-toastr';
 // importar grid
 import { AgGridModule } from 'ag-grid-angular';
 
+// libreria de graficos
+///////////////////////////////////////////////
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 // importaciones de componentes
+////////////////////////////////////////////////
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -40,6 +53,7 @@ import { CombinadoArtistaComponent } from './components/combinado-artista/combin
 import { GridComponent } from './components/grid/grid.component';
 
 import 'ag-grid-enterprise';
+import { GraficosComponent } from './components/graficos/graficos.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +76,8 @@ import 'ag-grid-enterprise';
     FileuploadComponent,
     FilesizePipe,
     CombinadoArtistaComponent,
-    GridComponent
+    GridComponent,
+    GraficosComponent
 
   ],
   imports: [
@@ -74,7 +89,8 @@ import 'ag-grid-enterprise';
     NgxSpinnerModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    FusionChartsModule
   ],
   providers: [
     {

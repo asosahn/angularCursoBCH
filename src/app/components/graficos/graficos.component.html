@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 mb-2">
+      <button class="btn btn-outline-info" (click)="exportChart($event)">Exportar a PDF</button>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <h1>
+            {{title}}
+          </h1>
+          <fusioncharts
+              width="600"
+              height="350"
+              type="Column2D"
+              dataFormat="JSON"
+              [dataSource]="dataSource"
+          ></fusioncharts>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <h1>
+            {{title}}
+          </h1>
+          <fusioncharts
+          width="600"
+          height="400"
+          dataFormat="JSON"
+          type="pie3d"
+          [dataSource]=dataSource >
+      </fusioncharts>
+    </div>
+  </div>
+</div>
