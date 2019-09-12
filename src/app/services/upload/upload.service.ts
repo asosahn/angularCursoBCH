@@ -41,6 +41,32 @@ export class UploadService {
     );
   }
 
+  excel(file: any) {
+    // const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
+    return this.http.post<any>(`${URL_PATH}/excel`, file, {
+      reportProgress: true,
+      observe: 'events',
+      // headers
+    })
+    .pipe(
+      map((event: any) => {
+        switch (event.type) {
+
+          case HttpEventType.UploadProgress:
+            const progress = Math.round(100 * event.loaded / event.total);
+            return { status: 'progress', message: progress };
+          case HttpEventType.Response:
+            this.files.push(event.body.file);
+            // para enviar a usuarios conectados al canal
+            this.subscriptionListenNewFiles.next(this.files);
+            return event.body;
+          default:
+            return `Unhandled event: ${event.type}`;
+      }
+    })
+    );
+  }
+
   canSubscribeToNewFiles() {
     return this.subscriptionListenNewFiles;
   }

@@ -1,9 +1,31 @@
-<ag-grid-angular
-    style="width: calc(100vw - 25px); height: 100vh;"
-    class="ag-theme-balham"
-    [rowData]="rowData | async"
-    [sideBar]="true"
-    [defaultColDef]="defaultColDef"
-    [columnDefs]="columnDefs"
-    >
-</ag-grid-angular>
+<div class="container-fluid mt-5">
+  <div class="row">
+      <div class="col-12">
+          <form [formGroup]="form" (ngSubmit)="saveForm()">
+            <input (change)="onChangeFile($event)" type="file">
+            <button type="submit" class="btn btn-outline-dark btn-sm">Subir</button>
+          </form>
+          {{uploadResponse?.message}}
+          <div class="progress mt-2" *ngIf="uploadResponse?.message">
+              <div class="progress-bar" role="progressbar" [style.width.%]="uploadResponse?.message" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{uploadResponse?.message}}%</div>
+            </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-outline-primary btn-sm" (click)="viewData()">Ver Data</button>
+        </div>
+    <div class="col-12 mt-5">
+      <ag-grid-angular
+      #agGrid
+      style="width: calc(100vw - 25px); height: 100vh;"
+        class="ag-theme-balham"
+        [rowData]="rowData"
+        [sideBar]="true"
+        [floatingFilter]="true"
+        [defaultColDef]="defaultColDef"
+        (gridReady)="onGridReady($event)"
+        [columnDefs]="columnDefs">
+
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>
