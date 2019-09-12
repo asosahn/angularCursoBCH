@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map, mapTo, catchError } from 'rxjs/operators';
 import { throwError, Observable, Subject } from 'rxjs';
 
@@ -46,24 +46,33 @@ export class UploadService {
   }
 
   download(filename: any) {
-    console.log(filename);
     return this.http.post<Blob>(`${URL_PATH}/download`, { filename: filename.originalname },
     {
-      responseType: 'blob' as 'json'
+      responseType: 'blob' as 'json',
+      reportProgress: true,
+      observe: 'events',
     })
     .pipe(
-      map((file: Blob) => {
-        // creando la url (http://localhost/dsjkdjsakdjaskka)
-        const url = URL.createObjectURL(file);
-        // <a></a>
-        const a = document.createElement('a');
-        // <a href="http://localhost/dsjkdjsakdjaskka"></a>
-        a.href = url;
-        // le pone nombre al archivo
-        a.download = filename.originalname;
-        a.click();
+      map((event: any) => {
+        if (event.type === HttpEventType.DownloadProgress) {
+          const percentDone = Math.round(100 * event.loaded / event.total);
+          return { status: 'progress', message: percentDone };
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely downloaded!');
+          // creando la url (http://localhost/dsjkdjsakdjaskka)
+          const url = URL.createObjectURL(event.body);
+          // <a></a>
+          const a = document.createElement('a');
+          // <a href="http://localhost/dsjkdjsakdjaskka"></a>
+          a.href = url;
+          // le pone nombre al archivo
+          a.download = filename.originalname;
+          a.click();
+          return(true);
+        }
+
       }),
-      mapTo(true),
+      // mapTo(true),
       catchError(err => {
         return throwError(err);
       })

@@ -1,3 +1,4 @@
+
 import { Subscription } from 'rxjs';
 import { UploadService } from './../../services/upload/upload.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -66,7 +67,19 @@ export class FileuploadComponent implements OnInit, OnDestroy {
    }
 
   BajarArchivo(file: any) {
-    this.uploadService.download(file).subscribe();
+    file.loading = true;
+    this.uploadService.download(file).subscribe(
+      (res: any) => {
+        if (res && res.status === 'progress') {
+          file.message = res.message;
+          if (res.message === 100) {
+              file.message = undefined;
+          }
+        } else if (res === true) {
+          file.loading = false;
+        }
+      }
+    );
   }
 
   ngOnInit() {

@@ -1,3 +1,4 @@
+import { SocketioService } from './../../services/socket/socketio.service';
 import { Subscription } from 'rxjs';
 import { AlertasService } from './../../services/alertas.service';
 import { ArtistsService } from '../../services/artists.service';
@@ -17,14 +18,22 @@ export class ArtistasComponent implements OnInit, OnDestroy {
 
   artistas: any[] = [];
   suscriptionToNewArtists: Subscription;
+  socketioArtists: Subscription;
   constructor(
     private router: Router,
     private artistsService: ArtistsService,
-    private alertService: AlertasService) {
+    private alertService: AlertasService,
+    private socketio: SocketioService) {
     this.suscriptionToNewArtists = this.artistsService.canSubscribeToNewArtist().subscribe(
       ((newArtist) => {
         console.log('nuevo artista');
         this.artistas.unshift({...newArtist, description: newArtist.description.substring(0, 100)});
+      })
+    );
+
+    this.socketioArtists =  this.socketio.onMessage('artist').subscribe(
+      ((data: any) => {
+        this.artistas.unshift({...data, description: `${data.description.substring(0, 100)}...`});
       })
     );
     //  this.activedRouter.params.subscribe(params => {
@@ -48,7 +57,8 @@ export class ArtistasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.suscriptionToNewArtists.unsubscribe()
+    this.suscriptionToNewArtists.unsubscribe();
+    this.socketioArtists.unsubscribe();
   }
 
   SubStringArtistas(artistas: any) {

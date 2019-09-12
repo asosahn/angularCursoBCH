@@ -27,7 +27,11 @@
                 <td>{{file.originalname}}</td>
                 <td>{{file.mimetype}}</td>
                 <td width="100">{{file.size | filesize }}</td>
-                <td><button (click)="BajarArchivo(file)" class="btn btn-outline-success bt-sm">Download</button></td>
+                <td><button (click)="BajarArchivo(file)" *ngIf="!file?.loading"  class="btn btn-outline-success bt-sm">Download</button>
+                  <button class="btn btn-primary btn-sm" type="button" *ngIf="file?.loading" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading {{ file?.message }} %
+                  </button></td>
 
               </tr>
             </tbody>

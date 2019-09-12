@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'http://bch.hazsk.com/'
+  url_root: 'http://bch.hazsk.com',
 };

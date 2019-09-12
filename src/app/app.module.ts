@@ -14,6 +14,8 @@ import { ToastrModule } from 'ngx-toastr';
 // importar grid
 import { AgGridModule } from 'ag-grid-angular';
 
+
+
 // importaciones de componentes
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -74,7 +76,8 @@ import 'ag-grid-enterprise';
     NgxSpinnerModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+
   ],
   providers: [
     {

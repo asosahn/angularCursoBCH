@@ -1,7 +1,6 @@
 import { AlertasService } from 'src/app/services/alertas.service';
 import { Component, HostListener, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 

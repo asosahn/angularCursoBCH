@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import 'ag-grid-enterprise';
 import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
@@ -36,6 +36,7 @@ export class GridComponent implements OnInit {
 
   ngOnInit() {
     this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');
+    // this.socket.sendMessage('hola');
   }
 
 }

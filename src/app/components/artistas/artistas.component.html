@@ -3,7 +3,7 @@
     <h1>Artistas</h1>
   </div>
   <div class="row">
-    <div class="col-md-6 col-lg-4 col-sm-12 animated bounceInRight delay-{{ind}}s" *ngFor="let artista of artistas;index as ind">
+    <div class="col-md-6 col-lg-4 col-sm-12 animated bounceInRight delay-{{ind}}s mt-2" *ngFor="let artista of artistas;index as ind">
         <app-card [data]="artista" buttonTitle="Ver Más"
         (clickButton)="verMas($event)"
         ></app-card>
