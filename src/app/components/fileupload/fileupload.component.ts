@@ -13,6 +13,7 @@ export class FileuploadComponent implements OnInit, OnDestroy {
   form: FormGroup;
   uploadResponse;
   files;
+  searchText;
   allFilesUploaded: Array<any> = [];
   // para suscripción a canal de carga de archivos
   susbscriptionToFiles: Subscription;

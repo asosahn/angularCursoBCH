@@ -42,6 +42,7 @@ import { CombinadoArtistaComponent } from './components/combinado-artista/combin
 import { GridComponent } from './components/grid/grid.component';
 
 import 'ag-grid-enterprise';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import 'ag-grid-enterprise';
     FileuploadComponent,
     FilesizePipe,
     CombinadoArtistaComponent,
-    GridComponent
+    GridComponent,
+    SearchPipe
 
   ],
   imports: [
